@@ -1,0 +1,27 @@
+# This script reads ${DB} and ${table} from sqsh, and if both are not empty, then it outputs a prettified list of ${table}'s column names.
+
+# Use:
+#
+#	From within sqsh:
+#		\set DB=AAA # Where AAA stands for a database name, e.g. "PRM".
+#		\set table=BBB # Where BBB stands for a table name, e.g. "Person".
+#		\loop -i /PATH/TO/ColumnNames_in_table.sql
+#
+#	Using the -i flag on sqsh from the BASH command line:
+#		$ sqsh -I WWW -S XXX -U YYY -P ZZZ -i '/PATH/ColumnNames_in_table.sql' -L 'DB=AAA' -L 'table=BBB'
+#	(Where AAA stands for a database name, e.g. "PRM", and BBB stands for a tablename, e.g. "Person".)
+
+\if sh -c "[ -z ${DB} ] || [ -z ${table} ]"
+	\echo "Make sure that both \\$DB (currently set to \\"${DB}\\") & \\$table (currently set to \\"${table}\\") are set correctly."
+\else
+	use ${DB}
+	select
+			column_name \\'${table}\\'
+		from
+			information_schema.columns
+		where
+			table_name = \\'${table}\\'
+		order by
+			ordinal_position
+	\go -m pretty
+\fi
