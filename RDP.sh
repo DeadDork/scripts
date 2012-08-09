@@ -3,9 +3,12 @@
 # This script makes it easy to create a Windows terminal that's well-fitted to the local machine's screen, as well as connect to any previously created connections.
 
 # This file stores all of the RDP connection settings.
-settings_store="${HOME}/.rdesktop_connections_list"
+settings_store="${HOME}/.config/scripts/rdesktop_connections_list"
 
 # Make sure the file exists.
+if [ ! -d "${HOME}/.config/scripts" ]; then
+	mkdir -p "${HOME}/.config/scripts"
+fi
 if [ ! -e $settings_store ]; then
 	touch $settings_store
 fi
