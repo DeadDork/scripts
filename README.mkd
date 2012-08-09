@@ -1,0 +1,44 @@
+scripts
+=======
+
+A bunch of short scripts to make life and BASH just a little easier.
+
+Configure
+---------
+
+Most of these scripts will run just fine on DASH, though many require BASH, and some even the latest BASH. Moreover, many of the scripts require non-standard tools, such as gawk, etc.
+
+Accordingly, to make sure that scripts run flawlessly, be sure to do the following for each script you plan on executing:
+
+1.	Check that you have the latest BASH installed (most likely you do).
+
+		bash --version
+
+	If it is version 4.0.0 and above, you should be fine.
+
+2.	If you attempt to execute the script, but it doesn't run, then review the script & make sure to properly install any missing programs it calls up.
+
+Install
+-------
+
+To install, simply move these scripts to a PATH directory, e.g. */HOME/.local/bin*.
+
+Execute
+-------
+
+These scripts can be executed in either of two ways:
+
+1.	Go to the scripts directory & execute:
+
+		./SCRIPT_NAME.sh
+
+2.	If you have moved the scripts to a PATH directory, then just type out the name of the script you want to run, and execute it. E.G.
+
+		sqsh_connections.sh
+
+Errors
+------
+
+Report any errors on the <https://www.github.com/DeadDork/scripts> **Issues** page. I will be sure to address them ASAP.
+
+Enjoy!
