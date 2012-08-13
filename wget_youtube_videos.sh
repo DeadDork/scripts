@@ -35,7 +35,7 @@ title="${2}$(awk '{printf "%s", $0}' "${HTML_file}" | grep -o '<title>.*<\/title
 wget -Ncq -e "convert-links=off" --load-cookies /dev/null --tries=50 --timeout=45 --no-check-certificate "${download_address}" -O "${title}"
 
 # Exits if the download fails.
-[ ! $? -eq ] && echo "Download failed. Make sure that the URI & PREFIX (if the latter is present) are correct and that you are connected to the internet." && exit 1
+[ ! $? -eq 0 ] && echo "Download failed. Make sure that the URI & PREFIX (if the latter is present) are correct and that you are connected to the internet." && exit 1
 
 # Otherwise a good exit!
 exit 0
