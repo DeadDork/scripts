@@ -20,7 +20,7 @@
 [ $# -lt 1 -o $# -gt 2 ] && clear && echo -e 'The command must be formatted as follows:\n\n\t./wget_youtube_videos.sh URI [PREFIX]\n\nFor example:\n\n\t./wget_youtube_videos.sh http://www.youtube.com/watch?v=ugw3ARV4X9g\n\nOr:\n\n\t./wget_youtube_videos.sh http://www.youtube.com/watch?v=ugw3ARV4X9g ~/Downloads/youtube/crystal_castles/\n' && exit 1
 
 # Temporary file for the youtube HTML.
-HTML_file="/tmp/$(echo "${1}" | sed -r 's/.*watch\?v=([[:alnum:]]*).*/\1/')"
+HTML_file="/tmp/$(echo "${1}" | sed -r 's/.*watch\?v=([[:alnum:]-]*).*/\1/')"
 
 # Downloads the HTML code from the URI.
 wget -Ncq -e "convert-links=off" --keep-session-cookies --save-cookies /dev/null --no-check-certificate "${1}" -O "${HTML_file}"
