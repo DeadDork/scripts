@@ -54,9 +54,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			done
 			user="-u ${user}"
 			clear
-			while [ -z "${domain}" ]; do
-				read -p 'Domain? ' domain
-			done
+			read -p 'Domain? ' domain
 			domain="-d ${domain}"
 			PS3='Connection strength?'
 			clear
