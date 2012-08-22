@@ -55,7 +55,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			user="-u ${user}"
 			clear
 			read -p 'Domain? ' domain
-			[ -n "${domain}" ] && domain="-d ${domain}"
+			[ ! -z "${domain}" ] && domain="-d ${domain}"
 			PS3='Connection strength?'
 			clear
 			select connect_strength in 'Modem' 'Broadband' 'LAN'; do
