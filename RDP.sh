@@ -34,8 +34,8 @@ settings_store="${HOME}/.config/scripts/rdesktop_connections_list"
 if [ ! -d "${HOME}/.config/scripts" ]; then
 	mkdir -p "${HOME}/.config/scripts"
 fi
-if [ ! -e $settings_store ]; then
-	touch $settings_store
+if [ ! -e "${settings_store}" ]; then
+	touch "${settings_store}"
 fi
 
 # Geometry values can't be saved, but have to be determined every time this script is called, as a change in monitors leads to problems, etc.
@@ -55,7 +55,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			user="-u ${user}"
 			clear
 			read -p 'Domain? ' domain
-			domain="-d ${domain}"
+			[ -n "${domain}" ] && domain="-d ${domain}"
 			PS3='Connection strength?'
 			clear
 			select connect_strength in 'Modem' 'Broadband' 'LAN'; do
@@ -132,13 +132,13 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			select add_connect_prompt in 'Yes' 'No'; do
 				case "${add_connect_prompt}" in
 					'Yes' )
-						# It's easier to just have one line in the file, rather than a series of lines that have to be concatenated into one line in the OLD CONNECTIONS case.
-						grep -F -i -q -e "${settings}" $settings_store 
+						# It's easier to just have one line in the file, rather than a series of lines that have to be concatenated into one line in the OLD CONNECTIONS case. I should figure out a better way to do that, though...
+						grep -F -i -q -e "${settings}" "${settings_store}"
 						if [ ! $? = 0 ]; then
-							if [ -s $settings_store ]; then
-								sed -i 's|\(.*\)|\1\t'"${settings}"'|' $settings_store
+							if [ -s "${settings_store}" ]; then
+								sed -i 's|\(.*\)|\1\t'"${settings}"'|' "${settings_store}"
 							else
-								echo "${settings}" > $settings_store
+								echo "${settings}" > "${settings_store}"
 							fi
 						fi
 						break
@@ -156,12 +156,12 @@ select connect_prompt in 'New connection' 'Established connection'; do
 		# If OLD CONNECTION, then select the old connection to connect to.
 		'Established connection' )
 			clear
-			if [ -s $settings_store ]; then
+			if [ -s "${settings_store}" ]; then
 				PS3='Pick a connection.'
 				IFS="	" # The expanded WORDS of the established connection have space elements, and accordingly the IFS is temporarily changed to just TAB.
-				select est_connect in $(cat $settings_store); do
+				select est_connect in $(cat "${settings_store}"); do
 					unset IFS # Returning IFS to stock setting.
-					grep -F -q -e "${est_connect}" $settings_store
+					grep -F -q -e "${est_connect}" "${settings_store}"
 					if [ $? = 0 -a -n "${est_connect}" ]; then
 						settings="${est_connect}"
 						break
